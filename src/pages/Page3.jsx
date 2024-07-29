@@ -1,15 +1,15 @@
-import React from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Workflow from "../components/Workflow";
 
 const Page3 = () => {
   const location = useLocation();
-  const workflowName = location.state?.workflowName || "";
+  const workflowName = location.state?.workflowName || "Workflow Name";
 
   return (
     <div>
       <Navbar workflowName={workflowName} />
-      <h2>Page 3 Content</h2>
+      <Workflow />
     </div>
   );
 };
