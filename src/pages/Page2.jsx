@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Page2.css";
 import Navbar from "../components/Navbar";
@@ -7,6 +7,7 @@ import axios from "axios";
 const Page2 = () => {
   const [jsonInput, setJsonInput] = useState("");
   const [message, setMessage] = useState("");
+  const [workflowData, setWorkflowData] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const workflowName = location.state?.workflowName || "Workflow Name";
@@ -17,7 +18,10 @@ const Page2 = () => {
       console.log("Valid JSON:", parsedJson);
 
       // Send the parsed JSON to the backend
-      const response = await axios.post("/api/userdata/create", parsedJson);
+      const response = await axios.post(
+        "http://localhost:8080/api/userdata/create",
+        parsedJson
+      );
       console.log("Response:", response.data);
 
       setMessage("Valid JSON submitted and saved!");
@@ -29,6 +33,27 @@ const Page2 = () => {
       setMessage("Invalid JSON. Please correct it and try again.");
     }
   };
+
+  const handleSelect = (workflow) => {
+    // Handle the selection of the workflow here
+    console.log("Selected Workflow:", workflow);
+    // You can set the selected workflow in state or navigate to another page
+  };
+
+  useEffect(() => {
+    const fetchWorkflowData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/workflows/summary"
+        );
+        setWorkflowData(response.data);
+      } catch (error) {
+        console.error("Error fetching workflow data:", error);
+      }
+    };
+
+    fetchWorkflowData();
+  }, []);
 
   return (
     <div>
@@ -56,6 +81,24 @@ const Page2 = () => {
           Submit
         </button>
         {message && <p className="message">{message}</p>}
+        <h2>Available Workflows</h2>
+        <div className="workflow-grid">
+          {workflowData.length > 0 ? (
+            workflowData.map((workflow, index) => (
+              <div key={index} className="workflow-box">
+                <h4>{workflow.name}</h4>
+                <button
+                  onClick={() => handleSelect(workflow)}
+                  className="select-button"
+                >
+                  Select
+                </button>
+              </div>
+            ))
+          ) : (
+            <p>No data available</p>
+          )}
+        </div>
       </div>
     </div>
   );

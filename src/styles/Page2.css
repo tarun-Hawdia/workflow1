@@ -1,5 +1,3 @@
-/* Page2.css */
-
 .container {
   padding: 20px;
 }
@@ -7,20 +5,9 @@
 .format-box {
   border: 1px solid #ddd;
   padding: 15px;
-  margin-bottom: 20px;
-  background-color: #f9f9f9;
-}
-
-.format-box h3 {
-  margin-top: 0;
-}
-
-.format-box pre {
-  white-space: pre-wrap; /* Allows the JSON format to wrap */
-  background-color: #eee;
-  padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 4px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
 }
 
 .json-input {
@@ -29,15 +16,16 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  font-family: monospace;
 }
 
 .submit-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
+  padding: 10px 15px;
   background-color: #007bff;
   color: #fff;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 
@@ -46,6 +34,43 @@
 }
 
 .message {
+  color: red;
   margin-top: 10px;
-  color: #d9534f;
+}
+
+.workflow-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Gap between boxes */
+}
+
+.workflow-box {
+  flex: 1 1 calc(25% - 20px); /* 25% width minus the gap */
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center align text and button */
+  position: relative; /* Make the box relative for positioning the button */
+}
+
+.workflow-box h4 {
+  margin: 0 0 10px;
+}
+
+.select-button {
+  padding: 5px 10px; /* Smaller padding */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  position: absolute; /* Absolute positioning */
+  bottom: 10px; /* Position it at the bottom */
+  left: 10px; /* Position it at the left */
+}
+
+.select-button:hover {
+  background-color: #0056b3;
 }
