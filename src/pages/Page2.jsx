@@ -34,11 +34,22 @@ const Page2 = () => {
     <div>
       <Navbar workflowName={workflowName} />
       <div className="container">
+        <div className="format-box">
+          <h3>JSON Input Format Example:</h3>
+          <pre>
+            {`{
+  "name": "John Doe",
+  "dob": "1990-01-01",
+  "gender": "M",
+  "pincode": "400001"
+}`}
+          </pre>
+        </div>
         <h2>Input JSON Data</h2>
         <textarea
           value={jsonInput}
           onChange={(e) => setJsonInput(e.target.value)}
-          placeholder="Enter JSON here..."
+          placeholder='Enter JSON in this format -- {"name": "John Doe", "dob": "1990-01-01", "gender": "M", "pincode": "400001"}'
           className="json-input"
         />
         <button onClick={handleSubmit} className="submit-button">
