@@ -16,11 +16,22 @@ const DropdownPage = ({ setWorkflowName }) => {
   const handleOptionChange = (index, value) => {
     const newDropdowns = [...dropdowns];
     newDropdowns[index].option = value;
+
+    // Update input field value and type
+    if (index < dropdowns.length - 1) {
+      // Ensure subsequent dropdowns are cleared or updated correctly
+      for (let i = index + 1; i < dropdowns.length; i++) {
+        newDropdowns[i] = { option: "", text: "" };
+      }
+    }
+
+    // Update text field type based on new option
+    newDropdowns[index].text = ""; // Clear text field value on option change
     setDropdowns(newDropdowns);
 
     if (index === dropdowns.length - 1 && dropdowns.length < 3) {
-      // limit to 3 rows
-      setDropdowns([...dropdowns, { option: "", text: "" }]);
+      // Limit to 3 rows
+      setDropdowns([...newDropdowns, { option: "", text: "" }]);
     }
   };
 
@@ -31,8 +42,8 @@ const DropdownPage = ({ setWorkflowName }) => {
   };
 
   const getInputType = (option) => {
-    if (option === "Age") return "number";
-    return "text";
+    if (option === "Gender") return "text";
+    return "number";
   };
 
   const handleReset = () => {
@@ -62,13 +73,20 @@ const DropdownPage = ({ setWorkflowName }) => {
     }
   };
 
+  // Determine if all fields are selected and loan status is set
   const allFieldsSelected =
     dropdowns.every((d) => d.option !== "" && d.text !== "") &&
     loanStatus !== "";
 
+  // Get available options by filtering out already selected options
+  const getAvailableOptions = (index) => {
+    const selectedOptions = dropdowns.slice(0, index).map((d) => d.option);
+    return options.filter((option) => !selectedOptions.includes(option));
+  };
+
   return (
     <div className="dropdown-page">
-      <h1>Dropdown Page</h1>
+      <h1>Workflow</h1>
       <div className="workflow-name-row">
         <input
           type="text"
@@ -86,7 +104,7 @@ const DropdownPage = ({ setWorkflowName }) => {
             <option value="" disabled>
               Select option
             </option>
-            {options.map((option) => (
+            {getAvailableOptions(index).map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
@@ -107,7 +125,7 @@ const DropdownPage = ({ setWorkflowName }) => {
               <option value="" disabled>
                 Select option
               </option>
-              {options.map((option) => (
+              {getAvailableOptions(index + 1).map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
@@ -133,11 +151,12 @@ const DropdownPage = ({ setWorkflowName }) => {
       <button onClick={handleReset} className="reset-button">
         Reset
       </button>
-      {allFieldsSelected && (
-        <button onClick={handleSubmit} className="submit-button">
-          Submit
-        </button>
-      )}
+      <button
+        onClick={handleSubmit}
+        className={`submit-button ${allFieldsSelected ? "active" : "inactive"}`}
+      >
+        Submit
+      </button>
     </div>
   );
 };

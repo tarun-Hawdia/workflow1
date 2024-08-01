@@ -47,8 +47,7 @@
   flex-shrink: 1;
 }
 
-.reset-button,
-.submit-button {
+.reset-button {
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 16px;
@@ -59,7 +58,27 @@
   cursor: pointer;
 }
 
-.reset-button:hover,
-.submit-button:hover {
+.reset-button:hover {
   background-color: #0056b3;
+}
+
+.submit-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: grey; /* Default inactive color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: not-allowed; /* Change cursor to indicate button is inactive */
+}
+
+.submit-button.active {
+  background-color: #007BFF; /* Active color */
+  cursor: pointer; /* Change cursor to indicate button is clickable */
+}
+
+.submit-button.inactive {
+  background-color: grey; /* Inactive color */
+  cursor: not-allowed; /* Change cursor to indicate button is inactive */
 }
