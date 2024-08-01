@@ -154,6 +154,7 @@ const DropdownPage = ({ setWorkflowName }) => {
       <button
         onClick={handleSubmit}
         className={`submit-button ${allFieldsSelected ? "active" : "inactive"}`}
+        disabled={!allFieldsSelected}
       >
         Submit
       </button>
